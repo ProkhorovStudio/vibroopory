@@ -1,0 +1,1 @@
+Нажимая на кнопку, я даю <a href="/soglasie-na-obrabotku-pd/" target="_blank">согласие на обработку</a> моих персональных данных в соответствии с<a href="/politika-pd/" target="_blank"> Политикой</a>

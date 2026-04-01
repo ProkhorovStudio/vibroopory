@@ -1,0 +1,2 @@
+Разработка и продвижение интернет-магазина <a target="_blank" href="https://prokhorov.studio/">Prokhorov.studio</a><br>
+ <a target="_blank" href="/politika-pd/" style="font-size:12px;float: right;">Политика в отношении персональных данных</a>

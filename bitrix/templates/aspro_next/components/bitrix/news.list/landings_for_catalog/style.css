@@ -1,0 +1,28 @@
+.landings-list_category{
+    margin: 15px 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.landing_for_catalog{
+    padding: 11px 31px 13px 17px;
+    text-align: left;
+    border: 1px solid #f2f2f2;
+    border-bottom-width: 0px;
+    background: #f8f8f9;
+    color: #555;
+    font-size: 13px;
+    transition: color ease-out 0.07s
+}
+.landing_for_catalog:hover{
+    background: #fff;
+    border-left: 3px solid #1f456d;
+    color: #1f456d;
+}
+
+.category_name{
+    margin-left: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+}

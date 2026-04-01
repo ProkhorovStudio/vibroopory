@@ -1,0 +1,12 @@
+.img.mfp-img {
+    position:relative;
+}
+
+.img-magnifier-glass{
+    position: absolute;
+    border: 1px solid #000;
+    cursor: none;
+    /*Установите размер увеличительного стекла:*/
+    width: 200px;
+    height: 200px;
+}

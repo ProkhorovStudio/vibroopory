@@ -1,0 +1,35 @@
+/*NOTE: This file is intended for programmers. Aspro technical support is not advised to work with him.*/
+
+/* Examples (uncomment to use):*/
+
+/* Expand site width */
+/* body .wrapper { max-width: 1400px !important;  } */
+
+/* Set site background image */
+/* body {  background: url(image_source) top no-repeat; }
+
+/* Hide compare button */
+/* a.compare_item { display: none !important;  }*/
+
+#bx-soa-order.orderform--v1 #bx-soa-delivery,#bx-soa-order.orderform--v1 #bx-soa-paysystem {
+        width: calc(100%);
+        margin-right: 0
+    }
+#bx-soa-order.orderform--v1 #bx-soa-delivery+#bx-soa-paysystem, #bx-soa-order.orderform--v1 #bx-soa-paysystem+#bx-soa-delivery {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+#bx-soa-order.orderform--v1 #bx-soa-delivery .bx-soa-pp-company-description {
+    padding: 0;
+    width: auto;
+    margin: 8px 0 9px 0;
+}
+
+#bx-soa-order.orderform--v1 .bx-soa-pp-item-container .bx-soa-pp-company-graf-container:before {
+    border: 1px solid #2c6198;
+}
+
+#bx-soa-order .bx-soa-pp-desc-container .checkbox label:before {
+    border: 1px solid #2c6198;
+}

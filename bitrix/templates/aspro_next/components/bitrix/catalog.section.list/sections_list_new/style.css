@@ -1,0 +1,193 @@
+/* Style the tab */
+.tabs{
+    padding-top: 7px;
+}
+.tab {
+    overflow: hidden;
+    /*border: 1px solid #ccc;*/
+    /*background-color: #f1f1f1;*/
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 6px;
+    transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #E7E7E7FF;
+    color: #255280;
+    font-weight: bold;
+    border-top: #255280 2px solid;
+}
+
+/* Style the tab content */
+.tabcontent {
+    max-width: 200px;
+    width: 100%;
+    display: none;
+    /*padding: 6px 12px;*/
+    border: 1px solid rgb(231, 231, 231);
+    padding: 5% 5%;
+    animation-name: red-yellow-green;
+    animation-fill-mode: forwards;
+    animation-duration: 0.5s;
+}
+.tabcontent img {
+    width: auto;
+    height: 108px;
+}
+
+@keyframes red-yellow-green {
+    0%   {box-shadow: none}
+    0%   {box-shadow: 3px 3px 1px 0.5px rgb(231, 231, 231);}
+    50%  {box-shadow: 6px 6px 1px 1px rgb(231, 231, 231);}
+    100% {box-shadow: 10px 10px 2px 1px rgb(231, 231, 231);}
+}
+
+/*@keyframes red-yellow-green {*/
+/*    0%   {-webkit-box-shadow: 0 0 7px rgb(0 0 0 / 3%);}*/
+/*    50%  {-webkit-box-shadow: 0 0 12px rgb(0 0 0 / 6%);}*/
+/*    100% {-webkit-box-shadow: 0 0 20px rgb(0 0 0 / 10%);}*/
+/*}*/
+
+
+.photo {
+    display: inline-block; /* Строчно-блочный элемент */
+    position: relative; /* Относительное позиционирование */
+    text-align: center;
+}
+
+.photo-description {
+    display: none;
+    position: absolute;
+    background: white;
+    font-size: 15px;
+    overflow: hidden;
+}
+
+.photo:hover .photo-description {
+    display: block;
+    width: 410px;
+    padding: 10px 20px;
+    z-index: 1000000;
+    border: 1px solid #888888;
+    box-shadow: 5px 5px 5px #888888;
+}
+
+@media(max-width: 991px){
+    .photo:hover .photo-description {
+        display: none;
+    }
+}
+
+.section_info ul{
+    overflow: unset !important;
+}
+
+.dark_link{
+    text-align: right;
+    padding-top: 15px;
+}
+.dark_link a{
+    padding-top: 15px;
+    text-decoration: underline;
+}
+
+/*.photo:hover {*/
+/*    width: fit-content;*/
+/*    !*content: attr(data-title); !* Выводим текст *!*!*/
+/*    position: absolute; !* Абсолютное позиционирование *!*/
+/*    left: 20%; !* Положение подсказки *!*/
+/*    z-index: 1; !* Отображаем подсказку поверх других элементов *!*/
+/*    background: rgb(255, 255, 255); !* Полупрозрачный цвет фона *!*/
+/*    font-family: Arial, sans-serif; !* Гарнитура шрифта *!*/
+/*    font-size: 11px; !* Размер текста подсказки *!*/
+/*    padding: 5px 10px; !* Поля *!*/
+/*    border: 1px solid #888888; !* Параметры рамки *!*/
+/*}*/
+
+
+.desc_wrapp{
+    font-size: 15px !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

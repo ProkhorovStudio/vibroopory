@@ -1,0 +1,22 @@
+[mc.shared.search]
+0=insert into
+
+[cmdline]
+0=cat dbconn.php 
+1=cat msqldump.sql | grep 5094108@gmail
+2=
+
+[Dir Hist New Right Panel]
+0=/home/g/g50941po/g50941po.beget.tech/public_html/bitrix/templates
+1=/home/g/g50941po/g50941po.beget.tech/public_html
+
+[Dir Hist New Left Panel]
+0=/home/g/g50941po/g50941po.beget.tech/public_html/bitrix/templates
+1=/home/g/g50941po/g50941po.beget.tech/public_html/bitrix/templates/aspro_next
+2=/home/g/g50941po/g50941po.beget.tech/public_html/bitrix/templates/aspro_next/js
+3=/home/g/g50941po/g50941po.beget.tech/public_html/bitrix/templates/aspro_next/js/blocks
+4=/home/g/g50941po/g50941po.beget.tech/public_html/blog
+5=/home/g/g50941po/g50941po.beget.tech/public_html/bitrix/php_interface
+6=/home/g/g50941po/g50941po.beget.tech/public_html/bitrix/backup
+7=/home/g/g50941po/g50941po.beget.tech/public_html/bitrix
+8=/home/g/g50941po/g50941po.beget.tech/public_html

@@ -1,0 +1,1047 @@
+Deny from 185.81.157.178
+Deny from 212.11.155.245
+
+ServerSignature Off
+AddDefaultCharset UTF-8
+
+#Options -Indexes 
+ErrorDocument 404 /404.php
+
+<IfModule mod_php5.c>
+  php_flag session.use_trans_sid off
+  #php_flag default_charset UTF-8
+  #php_value display_errors 1
+</IfModule>
+
+<IfModule mod_php7.c>
+  php_flag session.use_trans_sid off
+  #php_flag default_charset UTF-8
+  #php_value display_errors 1
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  Options +FollowSymLinks
+  RewriteEngine On
+
+  RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+  RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+  RewriteCond %{REQUEST_URI} ^(.*)/index\.php$
+  RewriteRule ^(.*)index\.php$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+	# ASPRO_ROBOTS Serve robots.txt with robots.php only if the latter exists
+	RewriteCond %{REQUEST_FILENAME} robots.txt
+	RewriteCond %{DOCUMENT_ROOT}/robots.php -f
+	RewriteRule ^(.*)$ /robots.php [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-l
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !/bitrix/urlrewrite.php$
+  RewriteRule ^(.*)$ /bitrix/urlrewrite.php [L]
+  RewriteRule .* - [E=REMOTE_USER:%{HTTP:Authorization}]
+
+
+#RewriteCond %{HTTPS} =off 
+#RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [QSA,L]
+
+</IfModule>
+
+<IfModule mod_dir.c>
+  DirectoryIndex index.php index.html
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive on
+  ExpiresByType image/jpeg "access plus 3 day"
+  ExpiresByType image/gif "access plus 3 day"
+  ExpiresByType image/png "access plus 3 day"
+  ExpiresByType text/css "access plus 3 day"
+  ExpiresByType application/javascript "access plus 3 day"  
+</IfModule>
+
+
+#редиректы со старого сайта
+RewriteCond %{QUERY_STRING} ^hhtmFrom=employer$ [NC]
+RewriteRule ^$ /? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=information/contact$ [NC]
+RewriteRule ^index\.php$ /contacts/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=information/information&information_id=10$ [NC]
+RewriteRule ^index\.php$ /help/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=information/information&information_id=4$ [NC]
+RewriteRule ^index\.php$ /company/? [R=301,L]
+
+RewriteCond %{QUERY_STRING} ^route=information/information&information_id=6$ [NC]
+RewriteRule ^index\.php$ /help/delivery/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=account/login$ [NC]
+RewriteRule ^index\.php$ /personal/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=information/information&information_id=7$ [NC]
+RewriteRule ^index\.php$ /? [R=302,L]
+RewriteCond %{QUERY_STRING} ^route=information/information&information_id=9$ [NC]
+RewriteRule ^index\.php$ /help/payment/? [R=301,L]
+#RewriteCond %{QUERY_STRING} ^route=information/sitemap$ [NC]
+#RewriteRule ^index\.php$ /sitemap.xml? [R=301,L]
+
+
+RewriteCond %{QUERY_STRING} ^route=product/category&path=111$ [NC]
+RewriteRule ^index\.php$ /vibroopory/universalnye-ekonomichnye/mfr/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/category&path=112$ [NC]
+RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/soleco_cb1mna/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/category&path=113$ [NC]
+RewriteRule ^index\.php$ /vibroopory/universalnye-ekonomichnye/? [R=302,L]
+RewriteCond %{QUERY_STRING} ^route=product/category&path=115$ [NC]
+RewriteRule ^index\.php$ /vibroopory/podvesnye-opory/ar/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/category&path=116$ [NC]
+RewriteRule ^index\.php$ /vibroopory/s-krepleniem-k-poverhnosty/epl/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/category&path=117$ [NC]
+RewriteRule ^index\.php$ /vibroopory/pnevmaticheskie-opory/slm/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/category&path=119$ [NC]
+RewriteRule ^index\.php$ /vibroopory/universalnye-ekonomichnye/sv/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/category&path=120$ [NC]
+RewriteRule ^index\.php$ /vibroopory/? [R=302,L]
+RewriteCond %{QUERY_STRING} ^route=product/category&path=121$ [NC]
+RewriteRule ^index\.php$ /vibroopory/ke/? [R=301,L]
+
+
+ 
+ #Резиновые амортизаторы, виброизоляторы, виброгасители
+RewriteCond %{QUERY_STRING} ^route=product/category&path=60$ [NC]
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/category&path=60&filter_ocfilter=(.*)$ [NC]
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/? [R=302,L]
+RewriteCond %{QUERY_STRING} ^route=product/category&path=60&page=(.*)$ [NC]
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/? [R=301,L]
+ 
+ #Тип A
+RewriteCond %{QUERY_STRING} ^route=product/category&path=61$ [NC]
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/category&path=61&page=(.*)$ [NC] 
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/? [R=301,L]
+ #Тип C
+RewriteCond %{QUERY_STRING} ^route=product/category&path=62$ [NC]
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/category&path=62&page=(.*)$ [NC] 
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/? [R=301,L] 
+ 
+RewriteCond %{QUERY_STRING} ^route=product/product&path=60&product_id=282$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/40x20DD08W/? [R=301,L] 
+RewriteCond %{QUERY_STRING} ^route=product/product&path=60_62&product_id=285$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/50x40DD10M/? [R=301,L] 
+RewriteCond %{QUERY_STRING} ^route=product/product&path=60_62&product_id=290$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/100x50DD16W/? [R=301,L] 
+ 
+ #Тип B
+RewriteCond %{QUERY_STRING} ^route=product/category&path=63$ [NC]
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/category&path=63&page=(.*)$[NC] 
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/? [R=301,L] 
+  #Тип D
+RewriteCond %{QUERY_STRING} ^route=product/category&path=64$ [NC]
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/category&path=64&page=(.*)$[NC] 
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/? [R=301,L] 
+   #Тип E
+RewriteCond %{QUERY_STRING} ^route=product/category&path=65$ [NC]
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_e_de/?  [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/category&path=65&page=(.*)$ [NC] 
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_e_de/? [R=301,L] 
+ 
+
+ 
+ #Пневматические виброопоры
+RewriteCond %{QUERY_STRING} ^route=product/category&path=72$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/pnevmaticheskie-opory/slm/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/category&path=72&page=(.*)$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/pnevmaticheskie-opory/slm/? [R=301,L]
+ 
+ #Регулируемые
+RewriteCond %{QUERY_STRING} ^route=product/category&path=73$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/reguliruemye-opory/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/category&path=73&page=(.*)$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/reguliruemye-opory/? [R=301,L]
+ #Пружинные виброопоры
+RewriteCond %{QUERY_STRING} ^route=product/category&path=76$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/soleco_cb1mna/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/category&path=76&page=(.*)$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/soleco_cb1mna/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/category&path=77$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/soleco_cb1mna/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/category&path=77&page=(.*)$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/soleco_cb1mna/? [R=301,L]
+ #LME
+RewriteCond %{QUERY_STRING} ^route=product/category&path=80$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/reguliruemye-opory/lme/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/category&path=80&filter_ocfilter=(.*)$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/reguliruemye-opory/lme/? [R=302,L]
+ #EPC
+RewriteCond %{QUERY_STRING} ^route=product/category&path=81$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/? [R=301,L]
+ #EM
+RewriteCond %{QUERY_STRING} ^route=product/category&path=83$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/em/? [R=301,L]
+       #elements
+RewriteCond %{QUERY_STRING} ^route=product/product&path=59_68&product_id=294$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/em/EM1.45F/? [R=301,L] 
+RewriteCond %{QUERY_STRING} ^route=product/product&path=59_71&product_id=294$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/em/EM1.45F/? [R=301,L] 
+RewriteCond %{QUERY_STRING} ^route=product/product&path=59_74&product_id=294$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/em/EM1.45F/? [R=301,L] 
+RewriteCond %{QUERY_STRING} ^route=product/product&path=59_98&product_id=242$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/? [R=302,L] 
+
+
+ 
+ #PCA
+RewriteCond %{QUERY_STRING} ^route=product/category&path=84$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/universalnye-ekonomichnye/pca/? [R=301,L]
+ #LM
+RewriteCond %{QUERY_STRING} ^route=product/category&path=87$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/reguliruemye-opory/lm/? [R=301,L]
+ #CP
+RewriteCond %{QUERY_STRING} ^route=product/category&path=90$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/s-krepleniem-k-poverhnosty/cp/? [R=301,L]
+
+
+RewriteCond %{QUERY_STRING} ^route=product/manufacturer$ [NC]  
+ RewriteRule ^index\.php$ /info/brands/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/manufacturer/info&manufacturer_id=11(.*)$ [NC]  
+ RewriteRule ^index\.php$ /info/brands/soleco/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/manufacturer/info&manufacturer_id=13(.*)$ [NC]
+  RewriteRule ^index\.php$ /info/brands/effbe_germaniya/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/manufacturer/info&manufacturer_id=(.*)$ [NC]  
+ RewriteRule ^index\.php$ /info/brands/? [R=302,L]
+ 
+ 
+
+RewriteCond %{QUERY_STRING} ^route=product/product&path=60_63&product_id=71$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/25x25VD18W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&path=60_63&product_id=81$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/40x25VD25M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&path=60_64&product_id=109$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/20x25VE18W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&path=60_65&product_id=140$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_e_de/50x21DE10M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&path=61&product_id=287$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/100x50VV44W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&path=62&product_id=282$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/40x20DD08W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&path=63&product_id=273$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/40x30VD23M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&path=63&product_id=75$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/25x30VD18W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&path=63&product_id=81$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/40x25VD25M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&path=64&product_id=112$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/25x10VE18W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&path=64&product_id=125$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/40x25VE25M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&path=75&product_id=199$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/reguliruemye-opory/lm/lm_6_80/? [R=301,L]
+
+
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=1$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/soleco_cb1mna/CB1MNaG/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=10$ [NC]
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/15x08VV10W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=100$ [NC]
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/40x30DD10M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=101$ [NC]
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/50x30DD10M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=102$ [NC]
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/50x50DD10M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=103$ [NC]
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/10x08VE10M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=104$ [NC]
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/15x08VE10M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=105$ [NC]
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/20x08VE16M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=106$ [NC]
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/20x08VE18M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=107$ [NC]
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/20x12VE18M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=108$ [NC]
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/20x20VE18W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=109$ [NC]
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/20x25VE18W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=11$ [NC]
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/20x08VV18M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=110$ [NC]
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/20x25VE18М/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=111$ [NC]
+RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/20x25VE18Н/? [R=301,L]
+
+
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=1$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/soleco_cb1mna/CB1MNaG/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=10$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/15x08VV10W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=100$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/40x30DD10M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=101$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/50x30DD10M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=102$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/50x50DD10M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=103$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/10x08VE10M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=104$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/15x08VE10M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=105$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/20x08VE16M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=106$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/20x08VE18M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=107$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/20x12VE18M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=108$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/20x20VE18W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=109$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/20x25VE18W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=11$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/20x08VV18M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=110$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/20x25VE18М/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=111$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/20x25VE18Н/? [R=301,L]	
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=112$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/25x10VE18W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=113$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/25x10VE20M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=114$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/25x15VE18W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=115$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/25x20VE18M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=116$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/25x25VE18W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=117$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/25x25VE20M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=118$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/30x15VE20M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=119$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/30x15VE20W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=45$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/20x10VV18M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=120$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/30x25VE20M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=121$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/40x20VE23H/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=122$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/40x20VE23M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=123$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/40x20VE23W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=124$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/40x20VE25W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=125$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/40x25VE25M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=126$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/40x30VE23M/? [R=301,L]
+
+
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=127$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/40x30VE23W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=128$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/50x20VE28M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=129$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/50x30VE25H/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=13$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/20x10VV18W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=130$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/50x30VE25M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=131$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/50x30VE25W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=132$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/60x25VE25M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=133$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_d_ve/75x30VE37H/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=134$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_e_de/20x20DE06M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=135$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_e_de/25x15DE06W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=136$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_e_de/30x25DE08M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=137$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_e_de/40x20DE10M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=138$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_e_de/40x25DE10M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=139$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_e_de/40x30DE10M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=14$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/20x15VV18M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=140$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_e_de/50x21DE10M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=15$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/20x15VV18W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=150$ [NC]
+ RewriteRule ^index.php$ /vibroopory/em/EM0.45L/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=151$ [NC]
+ RewriteRule ^index.php$ /vibroopory/em/EM0.55L/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=152$ [NC]
+ RewriteRule ^index.php$ /vibroopory/em/EM0.65F/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=153$ [NC]
+ RewriteRule ^index.php$ /vibroopory/em/EM1.45L/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=154$ [NC]
+ RewriteRule ^index.php$ /vibroopory/em/EM1.55L/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=155$ [NC]
+ RewriteRule ^index.php$ /vibroopory/em/EM1.65L/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=156$ [NC]
+ RewriteRule ^index.php$ /vibroopory/em/EM2.55L/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=157$ [NC]
+ RewriteRule ^index.php$ /vibroopory/em/EM2.55F/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=158$ [NC]
+ RewriteRule ^index.php$ /vibroopory/em/EM2.65F/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=159$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC02-45I/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=16$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/20x20VV18M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=160$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC02-60R/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=161$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC03-45I/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=162$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC03-60I/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=163$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC04-45K/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=164$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC04-60I/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=165$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC05-45I/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=166$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC05-60I/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=167$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC05-70I/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=168$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lme/LME120K/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=169$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lme/LME160K/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=17$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/20x20VV18W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=173$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lme/LME40K/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=175$ [NC]
+ RewriteRule ^index.php$ /vibroopory/universalnye-ekonomichnye/pca/PCA40R/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=176$ [NC]
+ RewriteRule ^index.php$ /vibroopory/universalnye-ekonomichnye/pca/PCA60R/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=177$ [NC]
+ RewriteRule ^index.php$ /vibroopory/universalnye-ekonomichnye/pca/PCA73R/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=178$ [NC]
+ RewriteRule ^index.php$ /vibroopory/pnevmaticheskie-opory/slm/slm_12_b/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=179$ [NC]
+ RewriteRule ^index.php$ /vibroopory/pnevmaticheskie-opory/slm/slm_1_a/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=18$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/20x25VV18M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=180$ [NC]
+ RewriteRule ^index.php$ /vibroopory/pnevmaticheskie-opory/slm/slm_24_a/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=181$ [NC]
+ RewriteRule ^index.php$ /vibroopory/pnevmaticheskie-opory/slm/? [R=302,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=182$ [NC]
+ RewriteRule ^index.php$ /vibroopory/pnevmaticheskie-opory/slm/slm_48_a/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=183$ [NC]
+ RewriteRule ^index.php$ /vibroopory/pnevmaticheskie-opory/slm/slm_6_a/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=184$ [NC]
+ RewriteRule ^index.php$ /vibroopory/pnevmaticheskie-opory/slm/slm_96_a/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=186$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epl/EPL0260/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=187$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epl/EPL0270/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=189$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lm/lm_1_4/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=19$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/20x25VV18W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=190$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lm/lm_1_6/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=191$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lm/lm_1_11/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=192$ [NC]
+ RewriteRule ^index.php$ /vibroopory/lm/? [R=302,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=193$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lm/lm_3_25/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=194$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lm/lm_3_33/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=195$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lm/lm_5_27/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=196$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lm/lm_5_42_/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=197$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lm/lm_5_55/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=198$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lm/lm_6_60/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=199$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lm/lm_6_80/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=2$ [NC]
+ RewriteRule ^index.php$ /vibroopory/podvesnye-opory/ar/AR60/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=20$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/25x10VV18M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=200$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/cp/cp_4135_m16/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=201$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lm/lm_6_66/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=202$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lm/lm_7_100/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=203$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lm/lm_7_77/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=204$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lm/lm_8_250/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=205$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lm/lm_8_251/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=206$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/cp/cp_4200_m16/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=207$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/cp/cp_4300_m16/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=209$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/hpr/HPR8/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=21$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/25x10VV18W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=213$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/hpr/HPR10/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=216$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/hpr/HPR12/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=217$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/hpr/HPR16/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=218$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/hpr/HPR18/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=22$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/25x10VV20М/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=220$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/hpr/HPR22/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=221$ [NC]
+ RewriteRule ^index.php$ /vibroopory/epa/EPA7/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=223$ [NC]
+ RewriteRule ^index.php$ /vibroopory/epa/EPA25/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=224$ [NC]
+ RewriteRule ^index.php$ /vibroopory/epa/EPA10/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=23$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/25x20VV18W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=232$ [NC]
+ RewriteRule ^index.php$ /vibroopory/pnevmaticheskie-opory/slm/slm_144_a/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=233$ [NC]
+ RewriteRule ^index.php$ /vibroopory/pnevmaticheskie-opory/slm/slm_192_a/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=235$ [NC]
+ RewriteRule ^index.php$ /vibroopory/universalnye-ekonomichnye/ob70/ОВ70/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=236$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lme/LME185R/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=237$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lme/LME230K/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=238$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lme/LME80R/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=239$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lme/LME80K/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=24$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/25x20VV18К/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=240$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lme/LME185K/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=241$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lme/LME230R/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=242$ [NC]
+ RewriteRule ^index.php$ /vibroopory/? [R=302,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=243$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC04-60K/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=244$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC05-45R/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=246$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC05-60R/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=247$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC05-70R/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=248$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC02-45R/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=249$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC02-60R/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=25$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/25x20VV18М/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=250$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC03-70I/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=251$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC03-60R/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=252$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC04-45I/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=253$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC04-60R/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=254$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/soleco_cb1mna/PMNaZb8/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=255$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/cp/cp_2020_m10/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=256$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lme/LME160F/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=257$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC03-70R/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=258$ [NC]
+ RewriteRule ^index.php$ /vibroopory/em/EM0.65L/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=259$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/soleco_cb1mna/CB1MNaM/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=26$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/25x20VV18Н/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=260$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/30x25VV20M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=261$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/30x30VV20M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=262$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/30x30VV20W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=263$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/40x25VV25M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=264$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/40x30VV23H/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=265$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/40x30VV25M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=266$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/40x30VV25W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=267$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/50x30VV25W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=268$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/50x40VV25M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=269$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/50x40VV25W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=27$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/25x20VV20W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=270$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/100x50VD44M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=271$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/30x30VD20M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=272$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/30x30VD20W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=273$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/40x30VD23M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=274$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/50x30VD25H/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=275$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/50x30VD28M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=276$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/50x40VD25M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=277$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/50x40VD25W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=279$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/? [R=302,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=28$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/25x25VV14M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=280$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/30x30DD08M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=281$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/30x30DD08W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=282$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/40x20DD08W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=283$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/40x30DD08M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=284$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/40x40DD10M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=285$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/50x40DD10M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=286$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/100x50VV44M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=287$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/100x50VV44W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=288$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/100x50VD44W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=289$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/100x50DD16M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=29$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/25x25VV18W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=290$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/100x50DD16W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=291$ [NC]
+ RewriteRule ^index.php$ /vibroopory/em/EM0.45I/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=292$ [NC]
+ RewriteRule ^index.php$ /vibroopory/em/EM0.65I/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=293$ [NC]
+ RewriteRule ^index.php$ /vibroopory/em/EM1.45I/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=295$ [NC]
+ RewriteRule ^index.php$ /vibroopory/em/EM1.55F/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=296$ [NC]
+ RewriteRule ^index.php$ /vibroopory/em/? [R=302,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=297$ [NC]
+ RewriteRule ^index.php$ /vibroopory/em/EM2.65L/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=298$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC02-45F/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=299$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC02-60K/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=3$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/soleco_cb1mna/CB1MNaV/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=30$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/25x30VV18W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=300$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC02-60F/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=301$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC03-45K/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=302$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC03-60K/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=309$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lme/LME120R/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=31$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/25x30VV18М/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=310$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/cp/cp_1010_m8/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=311$ [NC]
+ RewriteRule ^index.php$ /vibroopory/? [R=302,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=312$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/cp/cp_1015_m6/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=313$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/cp/cp_1035_m8/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=314$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/cp/cp_1050_m6/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=315$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/cp/cp_2090_m10/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=316$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/cp/cp_2040_m10/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=317$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/cp/cp_2060_m10/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=318$ [NC]
+ RewriteRule ^index.php$ /vibroopory/s-krepleniem-k-poverhnosty/cp/cp_2125_m12/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=319$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lme/LME315R/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=32$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/25x30VV20W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=320$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lme/LME80F/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=321$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lme/LME315K/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=322$ [NC]
+ RewriteRule ^index.php$ /vibroopory/universalnye-ekonomichnye/mfr/MFR80/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=323$ [NC]
+ RewriteRule ^index.php$ /vibroopory/universalnye-ekonomichnye/mfr/MFR90/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=324$ [NC]
+ RewriteRule ^index.php$ /vibroopory/universalnye-ekonomichnye/mfr/MFR60/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=325$ [NC]
+ RewriteRule ^index.php$ /vibroopory/universalnye-ekonomichnye/mfr/MFR130/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=326$ [NC]
+ RewriteRule ^index.php$ /vibroopory/universalnye-ekonomichnye/mfr/MFR110/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=327$ [NC]
+ RewriteRule ^index.php$ /vibroopory/universalnye-ekonomichnye/mfr/MFR150/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=328$ [NC]
+ RewriteRule ^index.php$ /vibroopory/universalnye-ekonomichnye/mfr/MFR170/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=329$ [NC]
+ RewriteRule ^index.php$ /vibroopory/universalnye-ekonomichnye/sv/SV0/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=33$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/30x15VV20W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=330$ [NC]
+ RewriteRule ^index.php$ /vibroopory/universalnye-ekonomichnye/sv/SV00/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=331$ [NC]
+ RewriteRule ^index.php$ /vibroopory/universalnye-ekonomichnye/sv/SV000/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=332$ [NC]
+ RewriteRule ^index.php$ /vibroopory/universalnye-ekonomichnye/sv/SV1/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=334$ [NC]
+ RewriteRule ^index.php$ /vibroopory/reguliruemye-opory/lme/LME160R/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=34$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/30x15VV20М/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=35$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/30x25VV20W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=36$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/40x20VV23M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=37$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/40x20VV23W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=38$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/40x20VV23Н/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=39$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/40x20VV25M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=4$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/soleco_cb1mna/PMNaZc3/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=40$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/40x25VV20W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=41$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/40x25VV25W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=42$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/40x25VV28M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=43$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/40x30VV20H/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=44$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/40x30VV20W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=45$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/? [R=302,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=46$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/40x30VV23W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=47$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/40x30VV25H/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=48$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/40x35VV23W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=49$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/40x40VV23W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=5$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/soleco_cb1mna/PMNaZc4/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=50$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/50x20VV18M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=51$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/50x20VV25W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=52$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/50x30VV23M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=53$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/50x30VV25M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=54$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/60x25VV25M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=55$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/08x08VD08W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=56$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/10x08VD10W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=57$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/? [R=302,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=58$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/? [R=302,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=59$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/20x20VD18M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=6$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/soleco_cb1mna/PMNaZc5/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=60$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/20x20VD18W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=61$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/20x20VD18К/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=62$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/20x25VD18M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=63$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/20x25VD18W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=64$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/25x15VD18M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=65$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/25x15VD18W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=66$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/25x15VD18Н/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=67$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/25x20VD10М/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=68$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/25x20VD18W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=69$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/25x20VD18Н/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=7$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/soleco_cb1mna/PMNaZb8/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=70$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/25x25VD18M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=71$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/25x25VD18W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=72$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/25x25VD18H/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=73$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/25x30VD16W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=74$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/25x30VD18M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=75$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/25x30VD18W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=76$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/25x30VD20W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=77$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/30x25VD20M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=78$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/30x25VD20W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=79$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/40x20VD23W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=8$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/10x08VV10M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=80$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/40x20VD25M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=81$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/40x25VD25M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=82$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/40x30VD18M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=83$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/40x30VD23H/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=84$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/40x30VD23W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=85$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/40x30VD25M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=86$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/50x20VD25H/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=87$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/50x20VD25M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=88$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/50x30VD25M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=89$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/50x30VD25W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=9$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/10x08VV10W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=90$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/20x15DD06M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=91$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/20x15DD06W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=92$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/20x20DD06W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=93$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/25x15DD06H/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=94$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/25x20DD06W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=95$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/25x25DD06M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=96$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/25x25DD06W/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=97$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/25x30DD08M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&product_id=98$ [NC]
+ RewriteRule ^index.php$ /vibroopory/soedinitelnye-elementy/ec/ec_c_dd/30x25DD08W/? [R=301,L]
+
+
+
+RewriteCond %{QUERY_STRING} ^route=product/special$ [NC]
+ RewriteRule ^index.php$ /sale/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^LEVEL_MOUNT.pdf$ [NC]
+ RewriteRule ^index.php$ /? [R=301,L]
+
+
+RewriteCond %{QUERY_STRING} ^route=product/product&path=117&product_id=182$ [NC]
+ RewriteRule ^index.php$ /vibroopory/pnevmaticheskie-opory/slm/slm_48_a/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&path=113&product_id=185$ [NC]
+ RewriteRule ^index.php$ /vibroopory/universalnye-ekonomichnye/ob31/OB31M/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&path=113&product_id=235$ [NC]
+ RewriteRule ^index.php$ /vibroopory/universalnye-ekonomichnye/ob_70/OB70/? [R=301,L]
+
+  #услуги
+ Redirect 301 /services/ustanovka-santekhniki/ https://vibroopora.com/services/ekspluatatsionnoe-obsluzhivanie/
+ Redirect 301 /services/strakhovanie-pokupki/ https://vibroopora.com/services/soputstvuyushchie-uslugi/
+ Redirect 301 /services/nastroyka-kompyutera/ https://vibroopora.com/services/uslugi-testirovaniya/
+ Redirect 301 /services/ustanovka-avtomobilnoy-tekhniki/ https://vibroopora.com/services/ispytatelnaya-laboratoriya/
+ Redirect 301 /vibroopory/ke/ https://vibroopora.com/vibroopory/klinovye_opory/
+ Redirect 301 /catalog/ https://vibroopora.com/vibroopory/
+
+  #таких страниц нет
+RewriteCond %{QUERY_STRING} ^route=product/category&path=59(.*)$ [NC] 
+ RewriteRule ^index\.php$ /vibroopory/? [R=302,L] 
+RewriteCond %{QUERY_STRING} ^route=product/category&path=66$(.*)$ [NC] 
+ RewriteRule ^index\.php$ /vibroopory/? [R=302,L]
+RewriteCond %{QUERY_STRING} ^route=product/category&path=67(.*)$ [NC] 
+ RewriteRule ^index\.php$ /vibroopory/? [R=302,L] 
+RewriteCond %{QUERY_STRING} ^route=product/category&path=68(.*)$ [NC] 
+ RewriteRule ^index\.php$ /vibroopory/? [R=302,L] 
+RewriteCond %{QUERY_STRING} ^route=product/category&path=69(.*)$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/? [R=302,L] 
+RewriteCond %{QUERY_STRING} ^route=product/category&path=70(.*)$ [NC] 
+ RewriteRule ^index\.php$ /vibroopory/? [R=302,L] 
+RewriteCond %{QUERY_STRING} ^route=product/category&path=71(.*)$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/? [R=302,L] 
+RewriteCond %{QUERY_STRING} ^route=product/category&path=74(.*)$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/? [R=302,L]
+RewriteCond %{QUERY_STRING} ^route=product/category&path=75(.*)$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/? [R=302,L]
+RewriteCond %{QUERY_STRING} ^route=product/category&path=86(.*)$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/? [R=302,L]
+RewriteCond %{QUERY_STRING} ^route=product/category&path=98(.*)$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/? [R=302,L]
+RewriteCond %{QUERY_STRING} ^route=product/compare(.*)$ [NC]  
+ RewriteRule ^index\.php$ /vibroopory/? [R=302,L]
+
+RewriteCond %{QUERY_STRING} ^route=product/product&path=60_63&product_id=78$ [NC]
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/? [R=302,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&path=60_61&product_id=286$ [NC]
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/? [R=302,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&path=59_68&product_id=297$ [NC]
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/? [R=302,L]
+RewriteCond %{QUERY_STRING} ^route=product/product&path=60_63&product_id=62$ [NC]
+ RewriteRule ^index\.php$ /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/? [R=302,L]
+
+  #редиректы по неактуальным адреса (со временем их потом можно убрать) - составлено Антонием
+ Redirect 301 /vibroopory/reguliruemye-opory/lm/LM04/ https://vibroopora.com/vibroopory/reguliruemye-opory/lm/LM04M5/
+ Redirect 301 /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/25X30VV18М/ https://vibroopora.com/vibroopory/soedinitelnye-elementy/ec/ec_a_vv/25x30VV18W/
+ Redirect 301 /vibroopory/reguliruemye-opory/lm/LM14/ https://vibroopora.com/vibroopory/reguliruemye-opory/lm/LM14M10/
+ Redirect 301 /vibroopory/reguliruemye-opory/lm/LM325/ https://vibroopora.com/vibroopory/reguliruemye-opory/lm/LM325M12/ 
+ Redirect 301 /vibroopory/reguliruemye-opory/lm/LM666/ https://vibroopora.com/vibroopory/reguliruemye-opory/lm/LM666M20/ 
+ Redirect 301 /vibroopory/reguliruemye-opory/lm/LM8200/ https://vibroopora.com/vibroopory/reguliruemye-opory/lm/LM8200M30/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/cp/CP1015M6/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/cp/C1015M6/  
+ Redirect 301 /vibroopory/universalnye-ekonomichnye/sv/SV0/ https://vibroopora.com/vibroopory/universalnye-ekonomichnye/sv/SV0L/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/cp/CP2090M10/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/cp/C2090M10/
+ Redirect 301 /vibroopory/universalnye-ekonomichnye/sv/SV1/ https://vibroopora.com/vibroopory/universalnye-ekonomichnye/sv/SV1L/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/cp/CP2125M10/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/cp/C2125M10/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/cp/CP2020M10/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/cp/C2020M10/
+ Redirect 301 /services/ustanovka-i-nastroyka-bytovoy-tekhniki/ https://vibroopora.com/services/
+ Redirect 301 /vibroopory/reguliruemye-opory/lm/LM16/ https://vibroopora.com/vibroopory/reguliruemye-opory/lm/LM16M10/
+ Redirect 301 /vibroopory/reguliruemye-opory/lm/LM311/ https://vibroopora.com/vibroopory/reguliruemye-opory/lm/LM311M12/
+ Redirect 301 /vibroopory/reguliruemye-opory/lm/LM555/ https://vibroopora.com/vibroopory/reguliruemye-opory/lm/LM555M16/
+ Redirect 301 /vibroopory/reguliruemye-opory/lm/LM660/ https://vibroopora.com/vibroopory/reguliruemye-opory/lm/LM660M20/
+ Redirect 301 /vibroopory/reguliruemye-opory/lm/LM777/ https://vibroopora.com/vibroopory/reguliruemye-opory/lm/LM777M24/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/cp/CP1010M8/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/cp/C1010M8/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/cp/CP1035M8/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/cp/C1035M8/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/cp/CP1050M8/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/cp/C1050M8/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/cp/CP2040M10/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/cp/C2040M10/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/cp/CP2125M12/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/cp/C2125M12/
+ Redirect 301 /vibroopory/soedinitelnye-elementy/ec/ec_b_vd/25x20VD18H/ https://vibroopora.com/vibroopory/soedinitelnye-elementy/ec/ec_b_vd/25x20VD18W/ 
+ Redirect 301 /vibroopory/universalnye-ekonomichnye/ob70/ОВ70/ https://vibroopora.com/vibroopory/universalnye-ekonomichnye/ov_70/ov70/
+ Redirect 301 /vibroopory/universalnye-ekonomichnye/ob70/ https://vibroopora.com/vibroopory/universalnye-ekonomichnye/ov_70/
+ Redirect 301 /vibroopory/universalnye-ekonomichnye/ob31/ https://vibroopora.com/vibroopory/universalnye-ekonomichnye/ov31/
+ Redirect 301 /vibroopory/universalnye-ekonomichnye/ov31/ОВ31М/ https://vibroopora.com/vibroopory/universalnye-ekonomichnye/ov31/ov31m/
+ Redirect 301 /vibroopory/universalnye-ekonomichnye/ob_70/ https://vibroopora.com/vibroopory/universalnye-ekonomichnye/ov_70/
+ Redirect 301 /vibroopory/universalnye-ekonomichnye/ov_70/ob70/ https://vibroopora.com/vibroopory/universalnye-ekonomichnye/ov_70/ov70/
+ Redirect 301 /contacts/stores/ https://vibroopora.com/contacts/
+ Redirect 301 /vibroopory/pruzhinnye-opory/soleco_seriya_pmna/ https://vibroopora.com/vibroopory/pruzhinnye-opory/seriya_pmna/
+ Redirect 301 /vibroopory/pruzhinnye-opory/soleco_seriya_mna/ https://vibroopora.com/vibroopory/pruzhinnye-opory/seriya_mna/
+ Redirect 301 /vibroopory/pruzhinnye-opory/soleco_mna_komplekty/ https://vibroopora.com/vibroopory/pruzhinnye-opory/komplety_mna/
+
+ Redirect 301  /beget_test.tx https://vibroopora.com/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/cp/C3125/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/cp/
+ Redirect 301 /vibroopory/soedinitelnye-elementy/soleco_cb1mna/PMNAZC5/ https://vibroopora.com/vibroopory/soedinitelnye-elementy/ 
+ Redirect 301 /vibroopory/pruzhinnye-opory/seriya_mna/CB1MNaV/ https://vibroopora.com/vibroopory/soedinitelnye-elementy/ 
+ Redirect 301 /vibroopory/pruzhinnye-opory/seriya_pmna/PMNaZc8/ https://vibroopora.com/vibroopory/soedinitelnye-elementy/ 
+ Redirect 301 /vibroopory/soedinitelnye-elementy/soleco_cb1mna/PMNaZc3/ https://vibroopora.com/vibroopory/soedinitelnye-elementy/  
+ Redirect 301 /vibroopory/universalnye-ekonomichnye/ov31/ov31m/ https://vibroopora.com/vibroopory/soedinitelnye-elementy/  
+ Redirect 301 /vibroopory/klinovye_opory/ke_effbe/ https://vibroopora.com/vibroopory/klinovye_opory/
+ Redirect 301 /vibroopory/klinovye_opory/ke_universalnye/ https://vibroopora.com/vibroopory/klinovye_opory/
+ Redirect 301 /vibroopory/universalnye-ekonomichnye/ov31/ov31m/ https://vibroopora.com/vibroopory/universalnye-ekonomichnye/ov31/OV31MR/
+ Redirect 301 /vibroopory/klinovye_opory/KE20/ https://vibroopora.com/vibroopory/klinovye_opory/KE200C/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/cp/C3300/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/cp/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/cp/C3500/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/cp/
+ Redirect 301 /vibroopory/universalnye-ekonomichnye/ov_70/ov70/ https://vibroopora.com/vibroopory/universalnye-ekonomichnye/ov_70/OV70R/
+ Redirect 301 /vibroopory/em/EM2.45K/ https://vibroopora.com/vibroopory/em/EM2.45L/
+ Redirect 301 /vibroopory/klinovye_opory/KE40CCOATING/ https://vibroopora.com/vibroopory/klinovye_opory/
+ Redirect 301 /vibroopory/klinovye_opory/KE60/ https://vibroopora.com/vibroopory/klinovye_opory/
+ Redirect 301 /vibroopory/klinovye_opory/KE10C/ https://vibroopora.com/vibroopory/klinovye_opory/
+ Redirect 301 /vibroopory/reguliruemye-opory/lm/LM511/ https://vibroopora.com/vibroopory/reguliruemye-opory/lm/
+ Redirect 301 /vibroopory/reguliruemye-opory/lm/LM7150/ https://vibroopora.com/vibroopory/reguliruemye-opory/lm/LM7100M24/
+ Redirect 301 /vibroopory/reguliruemye-opory/lm/LM8200M30/ https://vibroopora.com/vibroopory/reguliruemye-opory/lm/LM8250/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/cp/C3175/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/cp/
+ Redirect 301 /vibroopory/klinovye_opory/KE60COATING/ https://vibroopora.com/vibroopory/klinovye_opory/
+ Redirect 301 /vibroopory/klinovye_opory/KE20COATING/ https://vibroopora.com/vibroopory/klinovye_opory/
+ Redirect 301 /vibroopory/klinovye_opory/KE70COATING/ https://vibroopora.com/vibroopory/klinovye_opory/
+ Redirect 301 /vibroopory/reguliruemye-opory/lm/LM8200X1/ https://vibroopora.com/vibroopory/reguliruemye-opory/lm/LM8250/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/cp/CP4135M16/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/cp/C4135M16/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/cp/CP2060M10/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/cp/C2060M10/
+ Redirect 301 /vibroopory/reguliruemye-opory/lm/LM8300X1/ https://vibroopora.com/vibroopory/reguliruemye-opory/lm/
+ Redirect 301 /vibroopory/reguliruemye-opory/lm/LM8300/ https://vibroopora.com/vibroopory/reguliruemye-opory/lm/
+ Redirect 301 /vibroopory/reguliruemye-opory/lm/LM8250X1/ https://vibroopora.com/vibroopory/reguliruemye-opory/lm/LM8250/
+ Redirect 301 /vibroopory/reguliruemye-opory/lm/LM765/ https://vibroopora.com/vibroopory/reguliruemye-opory/lm/
+ Redirect 301 /vibroopory/klinovye_opory/KE10CCOATING/ https://vibroopora.com/vibroopory/klinovye_opory/
+ Redirect 301 /vibroopory/pruzhinnye-opory/komplety_mna/ https://vibroopora.com/vibroopory/pruzhinnye-opory/komplekty_mna/
+ Redirect 301 /vibroopory/soe https://vibroopora.com/vibroopory/
+ Redirect 301 /sale/skidka_10_na_vse_amortizatory_serii_es/ https://vibroopora.com/sale/
+ Redirect 301 /sale/skidka_5_na_pervyy_zakaz/ https://vibroopora.com/sale/
+ Redirect 301 /blog/tekhnologii/ https://vibroopora.com/blog/ 
+ Redirect 301 /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/25X30VV18M/ https://vibroopora.com/vibroopory/soedinitelnye-elementy/ec/ec_a_vv/25x30VV18M/
+ Redirect 301 /vibroopory/klinovye_opory/KE5COATING/ https://vibroopora.com/vibroopory/klinovye_opory/
+ Redirect 301 /vibroopory/soedinitelnye-elementy/ec/ec_a_vv/30x15VV20M/ https://vibroopora.com/vibroopory/soedinitelnye-elementy/ec/ec_a_vv/
+ #Redirect 301 /vibroopory/pnevmaticheskie-opory/slm/SLM3/ https://vibroopora.com/vibroopory/pnevmaticheskie-opory/slm/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epl/EPL0270/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epl/EPL0270I/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epl/EPL0260/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epl/EPL0260I/
+
+
+ #системные редиректы 18.07.2022
+ Redirect 301 /index.html https://vibroopora.com
+ Redirect 301 /index/ https://vibroopora.com
+ Redirect 301 /home.php https://vibroopora.com
+ Redirect 301 /home.html https://vibroopora.com
+ Redirect 301 /home.htm https://vibroopora.com
+ Redirect 301 /index.htm https://vibroopora.com
+ Redirect 301 /home https://vibroopora.com
+ Redirect 301 /index https://vibroopora.com
+
+ #системные редиректы 28.01.2023
+ Redirect 301 /vibroopory/em/ /vibroopory/opory_dlya_dvigateley_morskogo_transporta/em/
+
+
+ #товарные редиректы от 13.02.2024 (Антоний)
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC15050WCN/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC15050W20CN/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC10638MCN/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC10638M16CN/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC6330WCN/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC6330W10CN/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC15050MCN/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC15050M20CN/
+
+ #товарные редиректы от 16.03.2024 (Антоний) для категори EPC
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC02-45R/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0245RU/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC02-45F/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0245FR/ 
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC02-45I/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0245IT/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC02-45K/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0245CN/ 
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC02-60R/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0260RU/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC02-60F/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0260FR/ 
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC02-60K/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC02-60CN/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC02-60I/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0260IT/	
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC03-45R/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0345RU/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC03-45K/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0345CN/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC03-45I/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0345IT/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC03-60K/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0360CN/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC03-60R/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0360RU/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC03-60I/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0360IT/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC03-70I/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0370IT/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC03-70R/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0370RU/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC04-45I/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0445IT/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC04-45R/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0445RU/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC04-45K/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0445CN/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC04-60K/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0460CN/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC04-60I/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0460IT/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC04-60R/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0460RU/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC05-45R/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0545RU/ 
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC05-45I/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0545IT/
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC05-60R/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC05-60RU/ 
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC05-60I/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0560IT/ 
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC05-70I/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0570IT/ 
+ Redirect 301 /vibroopory/s-krepleniem-k-poverhnosty/epc/EPC05-70R/ https://vibroopora.com/vibroopory/s-krepleniem-k-poverhnosty/epc/EPC0570RU/
