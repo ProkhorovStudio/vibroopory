@@ -8148,6 +8148,9 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 				curDelivery, deliveryError, deliveryValue,
 				showOrderButton = this.params.SHOW_TOTAL_ORDER_BUTTON === 'Y';
 
+
+			console.log(total);
+
 			BX.cleanNode(this.totalInfoBlockNode);
 
 			if (parseFloat(total.ORDER_PRICE) === 0)

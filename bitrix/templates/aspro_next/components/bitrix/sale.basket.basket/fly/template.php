@@ -49,6 +49,7 @@ $title_delay = ($delayCount ? GetMessage("BASKET_DELAY_COUNT", array("#PRICE#" =
 
 $arCounters = CNext::updateBasketCounters(array('READY' => array('COUNT' => $normalCount, 'TITLE' => $title_basket, 'HREF' => $arParams["PATH_TO_BASKET"]), 'DELAY' => array('COUNT' => $delayCount, 'TITLE' => $title_delay, 'HREF' => $arParams["PATH_TO_BASKET"].'#delayed'), 'COMPARE' => array('COUNT' => $compareCount, 'HREF' => $arParams["PATH_TO_COMPARE"]), 'PERSONAL' => array('HREF' => $arParams["PATH_TO_AUTH"])));
 ?>
+
 <?if($arParams['INNER'] !==true && $_SERVER['REQUEST_METHOD'] !== 'POST'):?>
 	<div class="basket_fly loaded<?if (strlen($arResult["ERROR_MESSAGE"]) > 0):?> basket_empty<?endif;?>">
 <?endif;?>
@@ -149,9 +150,12 @@ $arCounters = CNext::updateBasketCounters(array('READY' => array('COUNT' => $nor
 						<li<?=($arElement["SELECTED"] ? ' class="cur"' : '');?> item-section="<?=$arElement["ID"]?>"><?include($_SERVER["DOCUMENT_ROOT"].$templateFolder.$arElement["FILE"]);?></li>
 					<?}?>
 				</ul>
+
 			<?}else{?>
 				<ul class="tabs_content basket"><li class="cur" item-section="AnDelCanBuy"><?include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/basket_items.php");?></ul>
+
 			<?}?>
+
 			<input id="fly_basket_params" type="hidden" name="PARAMS" value='<?=$paramsString?>' />
 		</form>
 

@@ -244,7 +244,10 @@ if ($normalCount > 0):
                 <?$totalCols = 3 + ($arParams["AJAX_MODE_CUSTOM"] != "Y" ? 1 : 0) + ($arParams["SHOW_FULL_ORDER_BUTTON"] == "Y" && !$arError["ERROR"] ? 1 : 0)?>
                 <tfoot>
                 <tr data-id="total_row">
-                    <td colspan="<?=($totalCols - 1)?>" class="row_titles">
+                    <td>
+                        <?$APPLICATION->IncludeFile(SITE_DIR."include/cart-message.php", Array(), Array("MODE" => "html", "NAME" => GetMessage('CT_BCE_CATALOG_SOC_BUTTON')));?>
+                    </td>
+                    <td  class="row_titles"> <!-- colspan="<?/*=($totalCols - 1)*/?>" -->
                         <?if($arError["ERROR"]){?>
                             <div class="icon_error_block"><?=$arError["TEXT"];?></div>
                         <?}?>

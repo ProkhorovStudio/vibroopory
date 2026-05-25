@@ -3713,7 +3713,7 @@ window.JCCatalogElement.prototype.setPriceMatrix = function(sPriceMatrix)
 	{
 		var measure = this.offers[this.offerNum].MEASURE && this.offers[this.offerNum].SHOW_MEASURE=="Y" ? this.offers[this.offerNum].MEASURE : '',
 			strPrice = '';
-		strPrice = getCurrentPrice(this.currentPrices[this.currentPriceSelected].PRICE, this.currentPrices[this.currentPriceSelected].CURRENCY, this.currentPrices[this.currentPriceSelected].PRINT_PRICE);
+		strPrice = 'от ' + getCurrentPrice(this.currentPrices[this.currentPriceSelected].PRICE, this.currentPrices[this.currentPriceSelected].CURRENCY, this.currentPrices[this.currentPriceSelected].PRINT_PRICE);
 		if(measure)
 			strPrice += '<span class="price_measure">/'+measure+'</span>';
 		$(this.obProduct).find('.not_matrix').hide();

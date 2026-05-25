@@ -1,8 +1,8 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Оформление заказа");
 ?><?$APPLICATION->IncludeComponent(
-	"bitrix:sale.order.ajax", 
-	"v2_custom", 
+	"prohorov:sale.order.ajax",
+	"v2_custom_new",
 	array(
 		"ACTION_VARIABLE" => "soa-action",
 		"ADDITIONAL_PICT_PROP_13" => "-",

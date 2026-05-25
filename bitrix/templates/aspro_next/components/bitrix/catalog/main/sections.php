@@ -46,7 +46,8 @@ if($USER->isAdmin()):?>
 	</div>
 
 
-<?php else: ?>
+<?php else:
+    ?>
 <?@include_once('page_blocks/'.$arParams["SECTIONS_TYPE_VIEW"].'.php');?>
 
 

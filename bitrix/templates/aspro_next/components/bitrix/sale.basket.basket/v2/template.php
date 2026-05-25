@@ -243,6 +243,8 @@ if (empty($arResult['ERROR_MESSAGE']))
 				<div class="basket-total-outer">
 					<div class="basket-total-block" data-entity="basket-total-block"></div>
 				</div>
+                <?$APPLICATION->IncludeFile(SITE_DIR."include/cart-message.php", Array(), Array("MODE" => "html", "NAME" => GetMessage('CT_BCE_CATALOG_SOC_BUTTON')));?>
+
 			<?endif;?>
 		</div>
 	</div>

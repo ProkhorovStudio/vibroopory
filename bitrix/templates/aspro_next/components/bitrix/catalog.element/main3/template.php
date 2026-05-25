@@ -981,7 +981,7 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 								<?if($arResult['ITEM_PRICE_MODE'] == 'Q' && is_array($arResult['PRICE_MATRIX']['ROWS']) && count($arResult['PRICE_MATRIX']['ROWS']) > 1):?>
 									<?=CNext::showPriceRangeTop($arResult, $arParams, GetMessage("CATALOG_ECONOMY"));?>
 								<?endif;?>
-								<?=CNext::showPriceMatrix($arResult, $arParams, $strMeasure, $arAddToBasketData);?>
+                                <?=CNext::showPriceMatrix($arResult, $arParams, $strMeasure, $arAddToBasketData);?>
 							<?
 							}
 							else
