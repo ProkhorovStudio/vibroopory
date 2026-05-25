@@ -11,6 +11,13 @@
 /* Hide compare button */
 /* a.compare_item { display: none !important;  }*/
 
+#text-cart.message-cart{
+    font-size: 14px;
+    line-height: 1.2;
+    color:#000;
+    font-weight: bold;
+}
+
 /*Шаблон статьи*/
 #top-state .col-lg-12{
     display: flex;

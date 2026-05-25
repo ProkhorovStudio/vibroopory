@@ -1,7 +1,12 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 <? $this->setFrameMode( true ); ?>
 
-<?if($arResult["SECTIONS"]){?>
+
+<?
+
+
+
+if($arResult["SECTIONS"]){?>
     <div class="catalog_section_list row items flexbox">
         <?foreach( $arResult["SECTIONS"] as $kayOne => $arItems ){
             $this->AddEditAction($arItems['ID'], $arItems['EDIT_LINK'], CIBlock::GetArrayByID($arItems["IBLOCK_ID"], "SECTION_EDIT"));
@@ -31,29 +36,29 @@
                                             <a href="<?=$arItems["SECTION_PAGE_URL"]?>" class="dark_link"><span><?=$arItems["NAME"]?></span></a>
                                         </li>
                                         <noindex>
+                                            <?
+                                            //print_r($arItems["SECTIONS"]);
+                                            ?>
                                             <div class="tabs">
                                                 <?if($arItems["SECTIONS"]){?>
-
                                                     <div class="tab">
-                                                        <?
-                                                        $keyss = array_keys($arItems["SECTIONS"]);
+                                                        <?php
+                                                        $firstKey = array_key_first($arItems["SECTIONS"]);
                                                         foreach( $arItems["SECTIONS"] as $kayy => $arItem ){?>
-                                                            <button class="tablinks <?if ( $keyss[0] === $kayy) { echo 'active';}?>" onclick="openCity(event, '<?=$arItem["NAME"]?>')"><?=$arItem["NAME"]?></button>
+                                                            <button data-section-id="<?=$arItem['ID']?>" class="tablinks <?=($firstKey === $kayy) ? 'active' : ''?>" data-tab-id="<?=$arItem['ID']?>"><?=$arItem["NAME"]?></button>
                                                         <?}?>
                                                     </div>
 
                                                     <!-- Tab content -->
-                                                    <?
-                                                    $keys = array_keys($arItems["SECTIONS"]);
-                                                    foreach( $arItems["SECTIONS"] as $kay => $arItem ){?>
-                                                        <div id="<?=$arItem["NAME"]?>" class="tabcontent"  <?if ( $keys[0] === $kay) { echo 'style="display: inline-grid;"';}?>>
+                                                    <?php foreach( $arItems["SECTIONS"] as $kay => $arItem ){?>
+                                                        <div id="tab-<?=$arItem['ID']?>" class="tabcontent" <?=($firstKey === $kay) ? 'style="display: block;"' : 'style="display: none;"'?>>
                                                             <div class="photo">
                                                                 <noindex><div style="text-align: left" class="photo-description"><?=$arItem["UF_PHOTO_DESCRIPTION"]["PREVIEW_TEXT"]?></div></noindex>
-                                                                <img src="<?=$arItem["PICTURE"]["SRC"]?>" alt="<?=$arItem["NAME"]?>"></div>
-                                                            <div class="dark_link" >В раздел <a href="<?=$arItem["SECTION_PAGE_URL"]?>" class="dark_link"><?=$arItem["NAME"]?></a></div>
+                                                                <img src="<?=$arItem["PICTURE"]["SRC"]?>" alt="<?=$arItem["NAME"]?>">
+                                                            </div>
+                                                            <div class="dark_link">В раздел <a href="<?=$arItem["SECTION_PAGE_URL"]?>" class="dark_link"><?=$arItem["NAME"]?></a></div>
                                                         </div>
                                                     <?}?>
-
                                                 <?}?>
                                             </div>
                                         </noindex>
@@ -75,3 +80,43 @@
         <?}?>
     </div>
 <?}?>
+<script>
+    function openCity(evt, tabId) {
+        // Находим родительский контейнер .tabs
+        var tabsContainer = evt.currentTarget.closest('.tabs');
+        if (!tabsContainer) return;
+
+        // Скрываем все вкладки внутри этого контейнера
+        var tabcontents = tabsContainer.querySelectorAll('.tabcontent');
+        for (var i = 0; i < tabcontents.length; i++) {
+            tabcontents[i].style.display = "none";
+        }
+
+        // Убираем класс active у всех кнопок внутри этого контейнера
+        var tablinks = tabsContainer.querySelectorAll('.tablinks');
+        for (var i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Показываем выбранную вкладку
+        var selectedTab = document.getElementById(tabId);
+        if (selectedTab) {
+            selectedTab.style.display = "block";
+        }
+
+        // Добавляем active на текущую кнопку
+        evt.currentTarget.className += " active";
+    }
+
+    // Привязываем обработчики после загрузки DOM
+    document.addEventListener('DOMContentLoaded', function() {
+        // Назначаем обработчики на все кнопки .tablinks
+        var buttons = document.querySelectorAll('.tablinks');
+        buttons.forEach(function(btn) {
+            btn.onclick = function(event) {
+                var tabId = 'tab-' + this.getAttribute('data-section-id');
+                openCity(event, tabId);
+            };
+        });
+    });
+</script>

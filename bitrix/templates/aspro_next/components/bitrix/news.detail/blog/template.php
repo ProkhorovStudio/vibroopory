@@ -57,7 +57,8 @@
             <div class="col-lg-12">
                 <?=$arResult['PROPERTIES']['ATT_DESC_ONE']['~VALUE']['TEXT']?>
                 <a rel="gallery" href="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_IMG_ONE']['VALUE']);?>" class="fancybox">
-                    <img src="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_IMG_ONE']['VALUE']);?>" alt="<?=$arResult['NAME']?>">
+
+                    <img src="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_IMG_ONE']['VALUE']);?>" alt="<?=$arResult['PROPERTIES']['ATT_IMG_ONE']['DESCRIPTION']?>">
                 </a>
             </div>
         </div>
@@ -74,7 +75,7 @@
             <div class="col-lg-12">
                 <div class="content-artikle__left-image">
                     <a rel="gallery" href="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_IMG_TWO']['VALUE']);?>" class="fancybox">
-                        <img src="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_IMG_TWO']['VALUE']);?>" alt="<?=$arResult['NAME']?>">
+                        <img src="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_IMG_TWO']['VALUE']);?>" alt="<?=$arResult['PROPERTIES']['ATT_IMG_TWO']['DESCRIPTION']?>">
                     </a>
                     <div class="content-artikle__left-image__right">
                         <?=$arResult['PROPERTIES']['ATT_DESC_TWO_RIGHT']['~VALUE']['TEXT']?>
@@ -104,7 +105,7 @@
                 <div class="col-lg-12">
                     <?=$arResult['PROPERTIES']['ATT_DESC_THREE']['~VALUE']['TEXT']?>
                     <a rel="gallery" href="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_IMG_THREE']['VALUE']);?>" class="fancybox">
-                        <img src="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_IMG_THREE']['VALUE']);?>" alt="<?=$arResult['NAME']?>">
+                        <img src="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_IMG_THREE']['VALUE']);?>" alt="<?=$arResult['PROPERTIES']['ATT_IMG_THREE']['DESCRIPTION']?>">
                     </a>
 
                 </div>
@@ -124,7 +125,7 @@
                     <div class="row-flex">
                         <div class="left-block">
                             <a rel="gallery" href="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_IMG_FOUR_LEFT']['VALUE']);?>" class="fancybox">
-                                <img src="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_IMG_FOUR_LEFT']['VALUE']);?>" alt="<?=$arResult['NAME']?>">
+                                <img src="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_IMG_FOUR_LEFT']['VALUE']);?>" alt="<?=$arResult['PROPERTIES']['ATT_IMG_FOUR_LEFT']['DESCRIPTION']?>">
                             </a>
                             <?=$arResult['PROPERTIES']['ATT_DESC_FOUR_LEFT']['~VALUE']['TEXT']?>
 
@@ -132,7 +133,7 @@
                         </div>
                         <div class="right-block">
                             <a rel="gallery"  href="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_IMG_FOUR_RIGHT']['VALUE']);?>" class="fancybox">
-                                <img src="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_IMG_FOUR_RIGHT']['VALUE']);?>" alt="<?=$arResult['NAME']?>">
+                                <img src="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_IMG_FOUR_RIGHT']['VALUE']);?>" alt="<?=$arResult['PROPERTIES']['ATT_IMG_FOUR_RIGHT']['DESCRIPTION']?>">
                             </a>
                             <?=$arResult['PROPERTIES']['ATT_DESC_FOUR_RIGHT']['~VALUE']['TEXT']?>
                         </div>
@@ -163,7 +164,7 @@
                             <?=$arResult['PROPERTIES']['ATT_SNOSKA_TWO_TEXT']['~VALUE']['TEXT']?>
                         </div>
                         <a rel="gallery" href="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_SNOSKA_TWO_IMG']['VALUE']);?>" class="fancybox">
-                            <img src="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_SNOSKA_TWO_IMG']['VALUE']);?>" alt="<?=$arResult['NAME']?>">
+                            <img src="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_SNOSKA_TWO_IMG']['VALUE']);?>" alt="<?=$arResult['PROPERTIES']['ATT_SNOSKA_TWO_IMG']['DESCRIPTION']?>">
                         </a>
                     </div>
                 </div>
@@ -232,7 +233,7 @@
                     <div class="row-flex first">
                         <div class="image-block left">
                             <a rel="gallery" href="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_IMG_EIGHT_LEFT']['VALUE']);?>" class="fancybox">
-                                <img src="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_IMG_EIGHT_LEFT']['VALUE']);?>" alt="<?=$arResult['NAME']?>">
+                                <img src="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_IMG_EIGHT_LEFT']['VALUE']);?>" alt="<?=$arResult['PROPERTIES']['ATT_IMG_EIGHT_LEFT']['DESCRIPTION']?>">
                             </a>
 
                         </div>
@@ -250,7 +251,7 @@
                         </div>
                         <div class="image-block">
                             <a rel="gallery" href="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_IMG_EIGHT_RIGHT']['VALUE']);?>" class="fancybox">
-                                <img src="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_IMG_EIGHT_RIGHT']['VALUE']);?>" alt="<?=$arResult['NAME']?>">
+                                <img src="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_IMG_EIGHT_RIGHT']['VALUE']);?>" alt="<?=$arResult['PROPERTIES']['ATT_IMG_EIGHT_RIGHT']['DESCRIPTION']?>">
                             </a>
                         </div>
                     </div>
@@ -446,7 +447,7 @@
                 <div class="col-lg-12">
                     <?=$arResult['PROPERTIES']['ATT_DESC_TEN']['~VALUE']['TEXT']?>
                     <a rel="gallery" href="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_IMG_TEN']['VALUE']);?>" class="fancybox">
-                        <img src="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_IMG_TEN']['VALUE']);?>" alt="<?=$arResult['NAME']?>">
+                        <img src="<?=CFile::GetPath($arResult['PROPERTIES']['ATT_IMG_TEN']['VALUE']);?>" alt="<?=$arResult['PROPERTIES']['ATT_IMG_TEN']['DESCRIPTION']?>">
                     </a>
                 </div>
             </div>
