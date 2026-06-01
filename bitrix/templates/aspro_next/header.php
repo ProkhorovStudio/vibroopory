@@ -38,7 +38,12 @@ if(Loader::IncludeModule('prokhorov.trafic'))
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?=LANGUAGE_ID?>" lang="<?=LANGUAGE_ID?>" <?=($htmlClass ? 'class="'.$htmlClass.'"' : '')?>>
 <head>
-    <meta name="robots" content="nofollow, noindex" />
+    <?
+    
+    if(SITE_SERVER_NAME == 'vibrobot.ru'):?>
+        <meta name="robots" content="nofollow, noindex" />
+    <?endif;?>
+
 
 	<?if ($_GET || strripos($_SERVER['REQUEST_URI'], '?')) {?>
 		<link rel="canonical" href="<?=$APPLICATION->GetCurPage(false)?>">
