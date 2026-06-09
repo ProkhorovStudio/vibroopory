@@ -82,15 +82,6 @@ if(Loader::IncludeModule('prokhorov.trafic'))
 
 <?$bIndexBot = CNext::checkIndexBot(); // is indexed yandex/google bot?>
 <body class="<?if($grayIp){echo 'botsIp';}?>  site_<?=SITE_ID?> <?=($bIncludedModule ? "fill_bg_".strtolower(CNext::GetFrontParametrValue("SHOW_BG_BLOCK")) : "");?> <?=($bIndexBot ? "wbot" : "");?>" id="main">
-
-<!--    --><?//
-//$contacts = $APPLICATION->GetCurDir() === '/contacts/';
-//if($contacts){?>
-<!--        -->
-<!--    --><?//}?>
-
-
-
 <?
     if(!$grayIp): /*Если IP не в сером списке */?>
 
@@ -141,9 +132,6 @@ if(Loader::IncludeModule('prokhorov.trafic'))
             );?>
         <?endif;?>
 
-
-
-    
     <div id="panel"><?$APPLICATION->ShowPanel();?></div>
 
 	<?if(!$bIncludedModule):?>
