@@ -11,6 +11,22 @@
 /* Hide compare button */
 /* a.compare_item { display: none !important;  }*/
 
+/*Соответствие*/
+
+.percent-rec.green_light{
+    background: #00b050;
+}
+.percent-rec.green_dark{
+    background: #92d050;
+}
+
+.percent-rec.gray_light{
+    background: #dcd7c1;
+}
+/**/
+
+
+
 #text-cart.message-cart{
     font-size: 14px;
     line-height: 1.2;

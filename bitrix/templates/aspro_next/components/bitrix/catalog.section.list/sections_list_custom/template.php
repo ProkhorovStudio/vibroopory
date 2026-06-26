@@ -48,15 +48,15 @@
     <div class="detail-type-description__title">Рекомендации к использованию</div>
     <div class="detail-type-description__line">
         <div class="detail-type-description__line-item">
-            <span style="background: blue;"></span>
+            <span style="background: #00b050;"></span>
+            <p>Идеальное соответствие</p>
+        </div>
+        <div class="detail-type-description__line-item">
+            <span style="background: #92d050;"></span>
             <p>Оптимальное соответствие</p>
         </div>
         <div class="detail-type-description__line-item">
-            <span style="background: green;"></span>
-            <p>Рекомендованное соответствие</p>
-        </div>
-        <div class="detail-type-description__line-item">
-            <span style="background: yellow;"></span>
+            <span style="background:#dcd7c1;"></span>
             <p>Допустимое соответствие</p>
         </div>
     </div>
@@ -122,7 +122,7 @@ if($arResult["SECTIONS"]){?>
 						<p class="title-section-rec">Рекомендуются для:</p>
 						<div class="recomendations-link">
 							<?foreach($arItems['RECOMENDATION'] as $recomendation):?>
-								<a href="<?=$recomendation['CATEGORY_LINK']?>" target="_blank">
+								<a title="<?=$recomendation['TITLE']?>" href="<?=$recomendation['CATEGORY_LINK']?>" target="_blank">
 									<span class="percent-rec <?=$recomendation['COLOR']?>"></span>
 									<span class="title" title="<?=$recomendation['TITLE']?>"><?=$recomendation['CATEGORY_NAME']?></span>
 								</a>

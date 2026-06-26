@@ -6,7 +6,10 @@ $GLOBALS['arSectionFilter'][] = ['UF_CATEGORY_SECTION' => ''];
 if($USER->isAdmin()){
     $template = "sections_list_new";
 }
+?>
 
+
+<?
 $APPLICATION->IncludeComponent(
 	"bitrix:catalog.section.list",
 	"$template",
@@ -35,3 +38,4 @@ $APPLICATION->IncludeComponent(
 	),
 	$component
 );?>
+
