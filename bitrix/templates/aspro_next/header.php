@@ -24,6 +24,9 @@ if (!isset($_SESSION['captcha_passed']) && !$_SESSION['captcha_passed'] === true
         $grayIp = LocalStorage::checkBots();
     }
 }
+else{
+
+}
 
 /*Получаем ip посетителя*/
 if(Loader::IncludeModule('prokhorov.trafic'))
@@ -79,15 +82,6 @@ if(Loader::IncludeModule('prokhorov.trafic'))
 
 <?$bIndexBot = CNext::checkIndexBot(); // is indexed yandex/google bot?>
 <body class="<?if($grayIp){echo 'botsIp';}?>  site_<?=SITE_ID?> <?=($bIncludedModule ? "fill_bg_".strtolower(CNext::GetFrontParametrValue("SHOW_BG_BLOCK")) : "");?> <?=($bIndexBot ? "wbot" : "");?>" id="main">
-
-<!--    --><?//
-//$contacts = $APPLICATION->GetCurDir() === '/contacts/';
-//if($contacts){?>
-<!--        -->
-<!--    --><?//}?>
-
-
-
 <?
     if(!$grayIp): /*Если IP не в сером списке */?>
 
@@ -99,6 +93,37 @@ if(Loader::IncludeModule('prokhorov.trafic'))
         	}
 
         ?>
+    <? if(SITE_SERVER_NAME != 'vibrobot.ru'):?>
+            <script type="text/javascript" >
+                (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+                    m[i].l=1*new Date();
+                    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+                    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+                (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+                ym(54700726, "init", {
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true,
+                    params:{ip:'<?=$user_ip?>'},
+                    webvisor:true,
+                    ecommerce:"dataLayer"
+                });
+            </script>
+            <noscript><div><img src="https://mc.yandex.ru/watch/54700726" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+            <!-- /Yandex.Metrika counter -->
+            <!-- Roistat Counter Start -->
+            <script>
+                (function(w, d, s, h, id) {
+                    w.roistatProjectId = id; w.roistatHost = h; w.roistatPage = d.location.href; w.roistatReferrer = d.referrer;
+                    var p = d.location.protocol == "https:" ? "https://" : "http://";
+                    var u = /^.*roistat_visit=[^;]+(.*)?$/.test(d.cookie) ? "/dist/module.js" : "/api/site/1.0/"+id+"/init?referrer="+encodeURIComponent(d.location.href);
+                    var js = d.createElement(s); js.charset="UTF-8"; js.async = 1; js.src = p+h+u; var js2 = d.getElementsByTagName(s)[0]; js2.parentNode.insertBefore(js, js2);
+                })(window, document, 'script', 'cloud.roistat.com', '6009b5ffb5e37e6cc67a7befe34f5760');
+            </script>
+            <!-- Roistat Counter End -->
+
+        <?endif;?>
 
         <?else:?>
             <?$APPLICATION->IncludeComponent(
@@ -108,9 +133,6 @@ if(Loader::IncludeModule('prokhorov.trafic'))
             );?>
         <?endif;?>
 
-
-
-    
     <div id="panel"><?$APPLICATION->ShowPanel();?></div>
 
 	<?if(!$bIncludedModule):?>
