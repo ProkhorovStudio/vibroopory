@@ -39,7 +39,7 @@ if(Loader::IncludeModule('prokhorov.trafic'))
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?=LANGUAGE_ID?>" lang="<?=LANGUAGE_ID?>" <?=($htmlClass ? 'class="'.$htmlClass.'"' : '')?>>
 <head>
     <?
-    
+
     if(SITE_SERVER_NAME == 'vibrobot.ru'):?>
         <meta name="robots" content="nofollow, noindex" />
     <?endif;?>
