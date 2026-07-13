@@ -80,6 +80,7 @@ foreach( $arResult["SECTIONS"] as $kay_one => $arItems){
 	];
 
 	$iblock_id = 37;
+	
 	$obServ = CIBlockElement::GetList (
 		["SORT"=>"ASC"],
 		["IBLOCK_ID" => $iblock_id, "ACTIVE" => "Y"],

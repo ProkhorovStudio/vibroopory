@@ -121,7 +121,8 @@ if($arResult["SECTIONS"]){?>
 					<div class="recomendation-block">
 						<p class="title-section-rec">Рекомендуются для:</p>
 						<div class="recomendations-link">
-							<?foreach($arItems['RECOMENDATION'] as $recomendation):?>
+							<?
+                            foreach($arItems['RECOMENDATION'] as $recomendation):?>
 								<a title="<?=$recomendation['TITLE']?>" href="<?=$recomendation['CATEGORY_LINK']?>" target="_blank">
 									<span class="percent-rec <?=$recomendation['COLOR']?>"></span>
 									<span class="title" title="<?=$recomendation['TITLE']?>"><?=$recomendation['CATEGORY_NAME']?></span>
