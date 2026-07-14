@@ -34,20 +34,33 @@ $obServ = CIBlockElement::GetList (
     ['ID','DETAIL_PAGE_URL','PROPERTY_ATT_SECTION','PROPERTY_ATT_SECTION_RECOMENDATION','PROPERTY_ATT_REC']
 );
 
-$html = '';
+$items = []; // Массив для хранения всех рекомендаций
 
 while($arServ = $obServ->GetNext())
 {
     $sectionName = CIBlockSection::GetByID($arServ['PROPERTY_ATT_SECTION_RECOMENDATION_VALUE'])->GetNext();
 
-    $color = $colorArr[$arServ['PROPERTY_ATT_REC_VALUE']];
-    $title = $titleRecomend[$arServ['PROPERTY_ATT_REC_VALUE']];
-    $name = $sectionName['NAME'];
-    $link = $sectionName['SECTION_PAGE_URL'];
+    $items[] = [
+        'color' => $colorArr[$arServ['PROPERTY_ATT_REC_VALUE']],
+        'title' => $titleRecomend[$arServ['PROPERTY_ATT_REC_VALUE']],
+        'name' => $sectionName['NAME'],
+        'link' => $sectionName['SECTION_PAGE_URL'],
+        'sort_value' => $arServ['PROPERTY_ATT_REC_VALUE'] // Идеальное, Оптимальное, Допустимое
+    ];
+}
 
-    $html .= '<a title="'.$title.'" href="'.$link.'" target="_blank">
-                <span class="percent-rec '.$color.'"></span>
-                <span class="title" title="'.$title.'">'.$name.'</span>
+// Сортируем по важности: Идеальное -> Оптимальное -> Допустимое
+usort($items, function($a, $b) {
+    $order = ['Идеальное' => 0, 'Оптимальное' => 1, 'Допустимое' => 2];
+    return $order[$a['sort_value']] - $order[$b['sort_value']];
+});
+
+// Формируем HTML
+$html = '';
+foreach($items as $item){
+    $html .= '<a title="'.$item['title'].'" href="'.$item['link'].'" target="_blank">
+                <span class="percent-rec '.$item['color'].'"></span>
+                <span class="title" title="'.$item['title'].'">'.$item['name'].'</span>
               </a>';
 }
 

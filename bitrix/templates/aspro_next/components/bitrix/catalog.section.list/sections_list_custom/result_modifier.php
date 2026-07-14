@@ -90,18 +90,31 @@ $obServ = CIBlockElement::GetList (
 
 while($arServ = $obServ->GetNext())
 {
-
     $sectionName = CIBlockSection::GetByID($arServ['PROPERTY_ATT_SECTION_RECOMENDATION_VALUE'])->GetNext();
 
+    $recValue = $arServ['PROPERTY_ATT_REC_VALUE'];
 
     $linkServ[$arServ['PROPERTY_ATT_SECTION_VALUE']][] = [
         "CATEGORY_NAME" => $sectionName['NAME'],
         "CATEGORY_LINK" => $sectionName['SECTION_PAGE_URL'],
-        "COLOR" => $colorArr[$arServ['PROPERTY_ATT_REC_VALUE']],
-        "TITLE" => $titleRecomend[$arServ['PROPERTY_ATT_REC_VALUE']]
+        "COLOR" => $colorArr[$recValue],
+        "TITLE" => $titleRecomend[$recValue],
+        "SORT_PRIORITY" => $recValue // Добавляем для сортировки
     ];
 }
 
+// Сортируем каждую группу по приоритету
+foreach($linkServ as &$recommendations){
+    usort($recommendations, function($a, $b) {
+        $order = ['Идеальное' => 0, 'Оптимальное' => 1, 'Допустимое' => 2];
+        return $order[$a['SORT_PRIORITY']] - $order[$b['SORT_PRIORITY']];
+    });
+
+    // Удаляем временное поле SORT_PRIORITY после сортировки
+    foreach($recommendations as &$rec){
+        unset($rec['SORT_PRIORITY']);
+    }
+}
 
 foreach($arResult["SECTIONS"] as &$arItem){
 
