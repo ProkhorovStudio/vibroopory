@@ -9,6 +9,7 @@ $(document).ready(function(){
     $('.tabs .tablinks').on('click', function() {
         const $tabs = $(this).closest('.tabs');
         const sectionId = $(this).attr('idsection');
+        const parentId = $(this).attr('num'); // Получаем ID родительского раздела
 
         // Управление классами кнопок
         $tabs.find('.tablinks').removeClass('active');
@@ -17,6 +18,36 @@ $(document).ready(function(){
         // Управление отображением контента
         $tabs.find('.tabcontent').hide();
         $tabs.find(`.tabcontent[id-section="${sectionId}"]`).css('display', 'inline-grid');
+
+        // Отправляем оба ID в обработчик
+        $.ajax({
+            url: '/local/ajax/ajax_recomendation.php',
+            type: "get",
+            data: {
+                section_id: sectionId,
+                parent_id: parentId
+            },
+            success: function(response) {
+                console.log(response);
+
+                if (response.success && response.html) {
+                    // Обновляем конкретный блок по data-parent-id
+                    $('.recomendation-block[data-parent-id="' + response.parent_id + '"]')
+                        .find('.recomendations-link')
+                        .html(response.html);
+                } else {
+                    // Если рекомендаций нет - очищаем конкретный блок
+                    $('.recomendation-block[data-parent-id="' + response.parent_id + '"]')
+                        .find('.recomendations-link')
+                        .html('');
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                console.log('Error: ' + errorThrown);
+            }
+        });
+
+        return false;
     });
 
 

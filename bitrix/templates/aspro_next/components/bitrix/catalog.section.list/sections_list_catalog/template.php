@@ -36,9 +36,6 @@ if($arResult["SECTIONS"]){?>
                                             <a href="<?=$arItems["SECTION_PAGE_URL"]?>" class="dark_link"><span><?=$arItems["NAME"]?></span></a>
                                         </li>
                                         <noindex>
-                                            <?
-                                            //print_r($arItems["SECTIONS"]);
-                                            ?>
                                             <div class="tabs">
                                                 <?if($arItems["SECTIONS"]){?>
                                                     <div class="tab">

@@ -1610,15 +1610,18 @@ input[type="checkbox"]:checked + label:after {
     font-size: 16px;
     font-weight: bold;
     line-height: 18px;
-    margin-bottom: 47px;
+    margin-bottom: 18px;
+}
+.index-catalog-title-section  + .description-line{
+    margin-bottom: 18px;
 }
 .top-sections.expanded > * {
     display: block;
 }
 .catalog_section_list .section_item.index-catalog .right-block {
-    padding: 40px;
+    padding: 24px;
     font-size: 15px;
-    margin-left: 4px;
+    margin-left: 0px;
     line-height: 22px;
     letter-spacing: -0.4px;
     padding-bottom: 0;
@@ -1656,7 +1659,7 @@ input[type="checkbox"]:checked + label:after {
 }
 .title-section-rec {
     font-weight: bold;
-    margin-top: 36px;
+    margin-top: 6px;
     margin-bottom: 0;
 }
 .recomendations-link .percent-rec {

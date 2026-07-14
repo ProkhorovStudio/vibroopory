@@ -64,49 +64,58 @@ foreach( $arResult["SECTIONS"] as $kay_one => $arItems){
     }
 }
 
-
 /*Рекомендованные категории*/
 
-	$colorArr = [
-		"Идеальное" => 'green_dark',
-		"Оптимальное" => 'green_light',
-		"Допустимое" => 'gray_light',
-	];
+$colorArr = [
+    "Идеальное" => 'green_dark',
+    "Оптимальное" => 'green_light',
+    "Допустимое" => 'gray_light',
+];
 
-	$titleRecomend = [
-		"Идеальное" => 'Идеальное (согласно рабочей таблице соответствий)',
-		"Оптимальное" => 'Оптимальное соответствие',
-		"Допустимое" => 'Допустимое соответствие',
-	];
+$titleRecomend = [
+    "Идеальное" => 'Идеальное (согласно рабочей таблице соответствий)',
+    "Оптимальное" => 'Оптимальное соответствие',
+    "Допустимое" => 'Допустимое соответствие',
+];
 
-	$iblock_id = 37;
-	
-	$obServ = CIBlockElement::GetList (
-		["SORT"=>"ASC"],
-		["IBLOCK_ID" => $iblock_id, "ACTIVE" => "Y"],
-		false,
-		false,
-		['ID','DETAIL_PAGE_URL','PROPERTY_ATT_SECTION','PROPERTY_ATT_SECTION_RECOMENDATION','PROPERTY_ATT_REC']
-	);
+$iblock_id = 37;
 
-	while($arServ = $obServ->GetNext())
-	{
-		$sectionName = CIBlockSection::GetByID($arServ['PROPERTY_ATT_SECTION_RECOMENDATION_VALUE'])->GetNext();
+$obServ = CIBlockElement::GetList (
+    ["SORT"=>"ASC"],
+    ["IBLOCK_ID" => $iblock_id, "ACTIVE" => "Y"],
+    false,
+    false,
+    ['ID','DETAIL_PAGE_URL','PROPERTY_ATT_SECTION','PROPERTY_ATT_SECTION_RECOMENDATION','PROPERTY_ATT_REC']
+);
 
-		$color = $arServ['PROPERTY_ATT_REC_VALUE'];
+while($arServ = $obServ->GetNext())
+{
 
-		$linkServ[$arServ['PROPERTY_ATT_SECTION_VALUE']][] = [
-			"CATEGORY_NAME" => $sectionName['NAME'],
-			"CATEGORY_LINK" => $sectionName['SECTION_PAGE_URL'],
-			"COLOR" => $colorArr[$arServ['PROPERTY_ATT_REC_VALUE']],
-			"TITLE" => $titleRecomend[$arServ['PROPERTY_ATT_REC_VALUE']]
-		];
-	}
+    $sectionName = CIBlockSection::GetByID($arServ['PROPERTY_ATT_SECTION_RECOMENDATION_VALUE'])->GetNext();
 
 
-
-foreach($arResult["SECTIONS"] as &$arItems){
-
-	$arItems['RECOMENDATION'] = $linkServ[$arItems['ID']];
+    $linkServ[$arServ['PROPERTY_ATT_SECTION_VALUE']][] = [
+        "CATEGORY_NAME" => $sectionName['NAME'],
+        "CATEGORY_LINK" => $sectionName['SECTION_PAGE_URL'],
+        "COLOR" => $colorArr[$arServ['PROPERTY_ATT_REC_VALUE']],
+        "TITLE" => $titleRecomend[$arServ['PROPERTY_ATT_REC_VALUE']]
+    ];
 }
+
+
+foreach($arResult["SECTIONS"] as &$arItem){
+
+    if(!empty($arItem['SECTIONS']) && is_array($arItem['SECTIONS'])){
+
+        $firstKey = array_key_first($arItem['SECTIONS']);
+        $arFirstSubSection = $arItem['SECTIONS'][$firstKey];
+
+
+        if(isset($linkServ[$arFirstSubSection['ID']])){
+            $arItem['RECOMENDATION'] = $linkServ[$arFirstSubSection['ID']];
+        }
+    }
+}
+
+
 ?>

@@ -65,16 +65,20 @@
 <?
 
 if($arResult["SECTIONS"]){?>
-<div class="catalog_section_list row items flexbox items-catalog-index">
+<div class="catalog_section_list row items flexbox items-catalog-index ">
 	<?foreach( $arResult["SECTIONS"] as $kayOne => $arItems ){
 		$this->AddEditAction($arItems['ID'], $arItems['EDIT_LINK'], CIBlock::GetArrayByID($arItems["IBLOCK_ID"], "SECTION_EDIT"));
 		$this->AddDeleteAction($arItems['ID'], $arItems['DELETE_LINK'], CIBlock::GetArrayByID($arItems["IBLOCK_ID"], "SECTION_DELETE"), array("CONFIRM" => GetMessage('CT_BNL_SECTION_DELETE_CONFIRM')));
 	?>
 
 	<?if($arItems['UF_PRIORITET'] == 1){?>
-		<div class="item_block col-md-12">
-			<div class="index-catalog-title-section"><a href="<?=$arItems["SECTION_PAGE_URL"]?>" class="dark_link"><span><?=$arItems["NAME"]?></span></a></div>
-			<div class="section_item item index-catalog" id="<?=$this->GetEditAreaId($arItems['ID']);?>">
+		<div class="item_block col-md-12 new-design-catalog">
+			<div class="index-catalog-title-section "><a href="<?=$arItems["SECTION_PAGE_URL"]?>" class="dark_link"><span><?=$arItems["NAME"]?></span></a></div>
+            <div class="description-line">
+                <?=$arItems['UF_DESC_SECTION'];?>
+
+            </div>
+            <div class="section_item item index-catalog"  id="<?=$this->GetEditAreaId($arItems['ID']);?>">
 				<div class="left-block section_info">
 					<ul>
                                 <noindex>
@@ -114,22 +118,17 @@ if($arResult["SECTIONS"]){?>
 				</div>
 				<?$arSection = $section=CNextCache::CIBlockSection_GetList(array('CACHE' => array("MULTI" =>"N", "TAG" => CNextCache::GetIBlockCacheTag($arParams["IBLOCK_ID"]))), array('GLOBAL_ACTIVE' => 'Y', "ID" => $arItems["ID"], "IBLOCK_ID" => $arParams["IBLOCK_ID"]), false, array("ID", $arParams["SECTIONS_LIST_PREVIEW_PROPERTY"]));?>
 				<div class="right-block">
-					<div class="description-line">
-						<?=$arItems['UF_DESC_SECTION'];?>
-						
-					</div>
-					<div class="recomendation-block">
+
+					<div class="recomendation-block" data-parent-id="<?=$arItems['ID']?>">
 						<p class="title-section-rec">Рекомендуются для:</p>
 						<div class="recomendations-link">
-							<?
-                            foreach($arItems['RECOMENDATION'] as $recomendation):?>
+							<?foreach($arItems['RECOMENDATION'] as $recomendation):?>
 								<a title="<?=$recomendation['TITLE']?>" href="<?=$recomendation['CATEGORY_LINK']?>" target="_blank">
 									<span class="percent-rec <?=$recomendation['COLOR']?>"></span>
 									<span class="title" title="<?=$recomendation['TITLE']?>"><?=$recomendation['CATEGORY_NAME']?></span>
 								</a>
 							<?endforeach;?>
 						</div>
-						
 					</div>
 				</div>
 				

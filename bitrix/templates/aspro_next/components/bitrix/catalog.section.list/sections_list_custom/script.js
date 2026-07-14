@@ -21,6 +21,8 @@ function openCity(evt, cityName) {
     document.getElementById(cityName).style.transform = 'translate(display)';
 
     evt.currentTarget.className += " active";
+
+
 }
 
 $(function(){
