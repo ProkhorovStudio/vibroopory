@@ -1663,10 +1663,27 @@ input[type="checkbox"]:checked + label:after {
     margin-bottom: 0;
 }
 .recomendations-link .percent-rec {
-    width: 26px;
-    height: 26px;
+    width: 20px;
+    height: 20px;
     display: block;
-    margin-right: 10px;
+    margin-right: 8px;
+}
+.recomendation-block{
+    height: 217px;
+    overflow: hidden;
+}
+.recomendation-block.open{
+    height: auto;
+}
+.recomendation-block.more:after{
+    content: "\f105";
+    width: 10px;
+    height: 10px;
+    transform: rotate(90deg);
+    font-size: 22px;
+    position: absolute;
+    right: -23px;
+    top: 11px;
 }
 .recomendations-link .percent-rec.green {
     background: green;
