@@ -10,4 +10,4 @@ $MESS["AUTH_PLEASE_AUTH"] = "Melden Sie sich bitte an:";
 $MESS["AUTH_REGISTER"] = "Registrieren";
 $MESS["AUTH_REMEMBER_ME"] = "Passwort merken";
 $MESS["AUTH_SECURE_NOTE"] = "Das Passwort wird verschlüsselt, bevor es versendet wird. So wird das Passwort während der Übertragung nicht offen angezeigt.";
-$MESS["AUTH_TITLE"] = "Log In";
+$MESS["AUTH_TITLE"] = "Auf der Website anmelden";

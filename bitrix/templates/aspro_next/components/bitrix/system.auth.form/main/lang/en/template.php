@@ -1,0 +1,33 @@
+<?
+$MESS["AUTH_LOGIN_BUTTON"] = "Log in";
+$MESS["AUTH_LOGIN"] = "Login";
+$MESS["AUTH_PASSWORD"] = "Password";
+$MESS["AUTH_REMEMBER_ME"] = "Remember me";
+$MESS["AUTH_FORGOT_PASSWORD_2"] = "Forgot your password?";
+$MESS["AUTH_REGISTER"] = "Registration";
+$MESS["AUTH_REGISTER_NEW"] = "Registration";
+$MESS["AUTH_LOGOUT_BUTTON"] = "Exit";
+$MESS["AUTH_PROFILE"] = "My profile";
+$MESS["AUTH_A_INTERNAL"] = "Built-in authorization";
+$MESS["AUTH_A_OPENID"] = "OpenID";
+$MESS["AUTH_OPENID"] = "OpenID";
+$MESS["AUTH_A_LIVEID"] = "LiveID";
+$MESS["AUTH_LIVEID_LOGIN"] = "Log In";
+$MESS["AUTH_CAPTCHA_PROMT"] = "Enter the code";
+$MESS["AUTH_REMEMBER_SHORT"] = "Remember me";
+$MESS["SOCSERV_AS_USER_FORM"] = "Log in as a user";
+$MESS["AUTH_SECURE_NOTE"]="Before submitting the authorization form, the password will be encrypted in the browser. This will avoid sending the password in clear text.";
+$MESS["AUTH_NONSECURE_NOTE"]="The password will be sent in clear text. Enable JavaScript in the browser to encrypt the password before sending.";
+$MESS["AUTH_ERROR"]="Invalid username or password";
+$MESS["REFRESH"]="Change the picture";
+$MESS['AUTH_BY_LOGIN_OR_EMAIL'] = "Login or E-Mail";
+$MESS['AUTH_BY_PHONE'] = "Phone";
+$MESS['AUTH_SELECT'] = "Select the authorization method on the website.";
+$MESS['auth_phone_number'] = "Phone number";
+$MESS['main_auth_sms_send'] = "Send";
+$MESS['AUTH_FIELD_SMS_CODE'] = "Authorization code from SMS";
+$MESS['AUTH_GET_SMS_CODE'] = "Get the code";
+$MESS['main_user_auth_code_sent'] = "An SMS with an authorization code was sent to your number.";
+$MESS['auth_otp_authorize'] = 'Please enter your one-time password';
+$MESS['auth_otp_otp'] = 'One-time password';
+?>

@@ -136,8 +136,9 @@ if($arResult["SECTIONS"]){?>
 		</div>
 		
 		<?
-$sectionArr = array_shift($sectionId);
-$section = $sectionArr['ID'];
+        $sectionId = [];
+        $sectionArr = array_shift($sectionId);
+        $section = $sectionArr['ID'];
 		?>
 <div id="products" idS="<?=$arItems['ID']?>">
 
